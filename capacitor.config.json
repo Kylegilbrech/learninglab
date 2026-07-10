@@ -1,0 +1,21 @@
+{
+  "appId": "com.gridiron.fantasy",
+  "appName": "Gridiron Fantasy",
+  "webDir": "www",
+  "backgroundColor": "#070b16",
+  "android": {
+    "backgroundColor": "#070b16"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 900,
+      "backgroundColor": "#070b16",
+      "showSpinner": false,
+      "androidScaleType": "CENTER_CROP"
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#070b16"
+    }
+  }
+}

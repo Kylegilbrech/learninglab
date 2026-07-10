@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Capacitor native platform (generated locally via `npx cap add android`)
+/android/
+/ios/
+
+# Build artifacts
+*.aab
+*.apk
+*.keystore
+*.jks
+keystore.properties
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

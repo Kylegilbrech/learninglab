@@ -1,0 +1,26 @@
+{
+  "name": "gridiron-fantasy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GRIDIRON — an engaging NFL fantasy squad-builder game, packaged for Google Play with Capacitor.",
+  "scripts": {
+    "serve": "node scripts/serve.js",
+    "cap:add": "cap add android",
+    "cap:sync": "cap sync",
+    "cap:open": "cap open android",
+    "assets": "capacitor-assets generate --android",
+    "android:build": "cd android && ./gradlew bundleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1",
+    "@capacitor/splash-screen": "^6.0.2",
+    "@capacitor/status-bar": "^6.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^6.1.2"
+  }
+}
