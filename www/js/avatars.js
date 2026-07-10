@@ -57,19 +57,23 @@ window.jerseySVG = function (p, opts) {
   const jersey = t.primary;
   const jerseyDark = shade(jersey, -0.45);
   const trim = t.secondary;
-  const num = readableOn(jersey);
+  const ink = readableOn(jersey);
   const uid = "g" + p.id + (opts.tag || "");
   const isDST = p.pos === "DST";
+  // Prefer a real jersey number for key players; fall back to the stylized one.
+  const jnum = (window.JERSEY_NUMBERS && window.JERSEY_NUMBERS[p.id]) || p.num;
+  const digits = String(jnum).length;
+  const numSize = digits >= 2 ? 46 : 52;
 
   // DST tokens show a shield instead of a jersey number.
   const centerMark = isDST
     ? `<path d="M60 40 L84 50 L84 74 Q84 92 60 102 Q36 92 36 74 L36 50 Z"
              fill="${shade(jersey, 0.12)}" stroke="${trim}" stroke-width="3"/>
        <text x="60" y="80" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
-             font-weight="700" font-size="26" fill="${num}">D</text>`
-    : `<text x="60" y="98" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
-             font-weight="700" font-size="46" letter-spacing="-1" fill="${num}"
-             style="paint-order:stroke;stroke:${jerseyDark};stroke-width:2px">${p.num}</text>`;
+             font-weight="700" font-size="26" fill="${ink}">D</text>`
+    : `<text x="60" y="99" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
+             font-weight="700" font-size="${numSize}" letter-spacing="-1" fill="${ink}"
+             style="paint-order:stroke;stroke:${jerseyDark};stroke-width:2px">${jnum}</text>`;
 
   return `
   <svg class="tok-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

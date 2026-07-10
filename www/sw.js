@@ -1,11 +1,12 @@
 /* Simple offline cache for the web/PWA build. Capacitor serves assets locally,
    so this mainly helps the browser/PWA version work offline. */
-const CACHE = "gridiron-v1";
+const CACHE = "gridiron-v2";
 const ASSETS = [
   "./index.html",
   "./css/styles.css",
   "./js/teams.js",
   "./js/players.js",
+  "./js/jerseys.js",
   "./js/avatars.js",
   "./js/confetti.js",
   "./js/app.js",
