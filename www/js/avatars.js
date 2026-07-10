@@ -63,15 +63,19 @@ window.jerseySVG = function (p, opts) {
   // Prefer a real jersey number for key players; fall back to the stylized one.
   const jnum = (window.JERSEY_NUMBERS && window.JERSEY_NUMBERS[p.id]) || p.num;
   const digits = String(jnum).length;
-  const numSize = digits >= 2 ? 46 : 52;
+  const numSize = digits >= 2 ? 40 : 46;
+  const jerseyLite = shade(jersey, 0.16);
 
-  // DST tokens show a shield instead of a jersey number.
+  // The whole token IS the jersey shape (short sleeves, V-neck, tapered body).
+  const JERSEY = "M6 44 L42 22 Q48 17 53 26 L60 34 L67 26 Q72 17 78 22 L114 44 " +
+                 "L114 62 L92 62 L98 116 L22 116 L28 62 L6 62 Z";
+
   const centerMark = isDST
-    ? `<path d="M60 40 L84 50 L84 74 Q84 92 60 102 Q36 92 36 74 L36 50 Z"
-             fill="${shade(jersey, 0.12)}" stroke="${trim}" stroke-width="3"/>
-       <text x="60" y="80" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
-             font-weight="700" font-size="26" fill="${ink}">D</text>`
-    : `<text x="60" y="99" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
+    ? `<path d="M60 60 L80 68 L80 88 Q80 101 60 108 Q40 101 40 88 L40 68 Z"
+             fill="${jerseyLite}" stroke="${trim}" stroke-width="3"/>
+       <text x="60" y="94" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
+             font-weight="700" font-size="22" fill="${ink}">D</text>`
+    : `<text x="60" y="100" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
              font-weight="700" font-size="${numSize}" letter-spacing="-1" fill="${ink}"
              style="paint-order:stroke;stroke:${jerseyDark};stroke-width:2px">${jnum}</text>`;
 
@@ -79,26 +83,26 @@ window.jerseySVG = function (p, opts) {
   <svg class="tok-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="${shade(jersey, 0.18)}"/>
+        <stop offset="0" stop-color="${jerseyLite}"/>
         <stop offset="1" stop-color="${jerseyDark}"/>
       </linearGradient>
-      <radialGradient id="${uid}s" cx="0.5" cy="0.28" r="0.9">
-        <stop offset="0" stop-color="rgba(255,255,255,0.16)"/>
-        <stop offset="1" stop-color="rgba(255,255,255,0)"/>
-      </radialGradient>
+      <linearGradient id="${uid}s" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="rgba(255,255,255,0.22)"/>
+        <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
     </defs>
-    <rect x="0" y="0" width="120" height="120" rx="26" fill="url(#${uid})"/>
-    <rect x="0" y="0" width="120" height="120" rx="26" fill="url(#${uid}s)"/>
-    <!-- jersey shoulders + V-neck -->
-    <path d="M14 120 L14 78 Q14 60 32 53 L46 47 Q52 60 60 60 Q68 60 74 47 L88 53 Q106 60 106 78 L106 120 Z"
-          fill="${shade(jersey, 0.06)}" stroke="${trim}" stroke-width="2.5" stroke-opacity="0.85"/>
-    <!-- shoulder trim stripes -->
-    <path d="M24 66 L24 120 M96 66 L96 120" stroke="${trim}" stroke-width="4" stroke-opacity="0.55" fill="none"/>
+    <path d="${JERSEY}" fill="url(#${uid})" stroke="${trim}" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="${JERSEY}" fill="url(#${uid}s)"/>
+    <!-- sleeve cuff trim -->
+    <path d="M9 51 L27 60 M111 51 L93 60" stroke="${trim}" stroke-width="4" stroke-linecap="round"/>
+    <!-- V-neck collar trim -->
+    <path d="M53 26 L60 34 L67 26" fill="none" stroke="${trim}" stroke-width="4.5"
+          stroke-linejoin="round" stroke-linecap="round"/>
     ${centerMark}
-    <!-- position tab -->
-    <rect x="42" y="8" width="36" height="17" rx="8.5" fill="${posColor}"/>
-    <text x="60" y="20.5" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
-          font-weight="700" font-size="12" fill="#0a1124">${p.pos}</text>
+    <!-- position tab under collar -->
+    <rect x="45" y="39" width="30" height="15" rx="7.5" fill="${posColor}"/>
+    <text x="60" y="50.5" text-anchor="middle" font-family="'Saira Condensed',sans-serif"
+          font-weight="700" font-size="11" fill="#0a1124">${p.pos}</text>
   </svg>`;
 };
 
@@ -110,8 +114,7 @@ window.avatar = function (p, opts) {
   const photo = url
     ? `<img class="tok-img" src="${url}" alt="" loading="lazy" onerror="this.remove()">`
     : "";
-  const ringStyle = opts.ring ? `box-shadow:0 0 0 2px ${opts.ring}` : "";
-  return `<span class="tok" style="width:${size}px;height:${size}px;${ringStyle}">${window.jerseySVG(p, opts)}${photo}</span>`;
+  return `<span class="tok" style="width:${size}px;height:${size}px">${window.jerseySVG(p, opts)}${photo}</span>`;
 };
 
 window.avatarInitials = initials;

@@ -118,11 +118,12 @@ main::-webkit-scrollbar{display:none}
 .add:disabled{background:var(--card2);color:var(--mut2);cursor:not-allowed}
 .prow.owned{opacity:.62;border-color:var(--line2)}
 
-/* ============ PLAYER TOKEN (avatar) ============ */
-.tok{position:relative;display:inline-block;border-radius:12px;overflow:hidden;flex:0 0 auto;
-  background:#0d1426;box-shadow:0 2px 8px -2px rgba(0,0,0,.5)}
-.tok-svg{position:absolute;inset:0;width:100%;height:100%}
-.tok-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+/* ============ PLAYER TOKEN (the jersey IS the shape) ============ */
+.tok{position:relative;display:inline-block;flex:0 0 auto}
+.tok-svg{position:absolute;inset:0;width:100%;height:100%;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.5))}
+.tok-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;
+  border-radius:12px}
 
 /* ============ BANNERS ============ */
 .banner{border-radius:13px;padding:12px 14px;margin-bottom:12px;font-weight:700;font-size:12.5px;
@@ -173,7 +174,7 @@ main::-webkit-scrollbar{display:none}
   border:2px solid #0e5c2f;z-index:3}
 .cap{background:var(--amber);color:#0a1124;box-shadow:0 0 10px -1px var(--amber)}
 .vice{background:var(--cyan);color:#0a1124}
-.fp-tok.captain{box-shadow:0 0 0 3px var(--amber),0 0 18px -2px var(--amber);border-radius:14px}
+.fp-tok.captain .tok-svg{filter:drop-shadow(0 0 5px var(--amber)) drop-shadow(0 0 2px var(--amber))}
 
 /* bench grid */
 .benchgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
