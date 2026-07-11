@@ -50,7 +50,14 @@ No build step — it's plain HTML/CSS/JS so it runs anywhere.
 
 ## Build for Google Play
 
-See **[docs/PLAY_STORE.md](docs/PLAY_STORE.md)** for the full walkthrough. Short version:
+See **[docs/PLAY_STORE.md](docs/PLAY_STORE.md)** for the full walkthrough. Two paths:
+
+**Easiest — build in CI (no local Android setup):** the `.github/workflows/android-build.yml`
+workflow builds the app on GitHub's servers. Trigger it from the **Actions** tab and download the
+`gridiron-debug-apk` artifact to install on a phone; add signing secrets to also get a Play-ready
+`.aab`. (This exists because Google's Android SDK/Maven servers are often blocked in sandboxes.)
+
+**Local — Android Studio:**
 
 ```bash
 npm install

@@ -9,6 +9,32 @@ committed to the repo — see `.gitignore`).
 
 ---
 
+## Option A — Build in GitHub Actions (no local setup) ✅ easiest
+
+A ready-to-run workflow lives at `.github/workflows/android-build.yml`. It builds the app on
+GitHub's servers (which have the Android SDK and network access to Google's build servers) and
+hands you back the installable file as a downloadable artifact.
+
+1. Go to the repo's **Actions** tab → **Android Build** → **Run workflow** (or just push a change
+   to `www/`, which triggers it automatically).
+2. When the run finishes, open it and download the **`gridiron-debug-apk`** artifact. That `.apk`
+   installs directly on any Android phone (enable "install from unknown sources") — great for
+   testing the real app.
+3. **For a Play-ready signed AAB**, first create an upload keystore (see step 7 below), then add
+   these repo **Secrets** (Settings → Secrets and variables → Actions):
+   - `ANDROID_KEYSTORE_BASE64` — output of `base64 -w0 gridiron-upload.keystore`
+   - `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`
+
+   Re-run the workflow and it also produces a **`gridiron-release-aab`** artifact — that's the file
+   you upload to the Play Console (Option A replaces steps 1–8 below).
+
+> Note: the AAB from CI is signed with *your* upload key from the secrets. Keep that keystore
+> backed up — it's the same key you must reuse for every future update.
+
+---
+
+## Option B — Build locally in Android Studio
+
 ## 1. Prerequisites
 
 | Tool | Notes |
