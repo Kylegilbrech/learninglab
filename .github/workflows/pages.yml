@@ -1,0 +1,45 @@
+name: Deploy Web (GitHub Pages)
+
+# Publishes the static web game in www/ to GitHub Pages.
+# One-time setup: repo Settings → Pages → "Build and deployment" → Source: GitHub Actions.
+# After that, every push to the branch redeploys the live site automatically.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "claude/football-app-google-play-98gd6n" ]
+    paths:
+      - "www/**"
+      - ".github/workflows/pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deploy; don't cancel an in-progress production deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload www as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: www
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
